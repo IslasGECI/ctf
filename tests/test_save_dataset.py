@@ -7,6 +7,7 @@ path_to_complete_dataset = path_to_submission_directory + "complete_dataset.csv"
 
 ctf = Referee(path_to_complete_dataset)
 
+
 def test_save_training_dataset_includes_na():
     path_to_training = ctf.get_training_path()
     if os.path.exists(path_to_training):
@@ -16,5 +17,3 @@ def test_save_training_dataset_includes_na():
     expected_count_na = 31
     assert expected_count_na == obtained_count_na
     os.remove(path_to_training)
-
-
