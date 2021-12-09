@@ -1,4 +1,4 @@
-from ..common_task_framework import get_submission_list, Referee
+from ..ctf import get_submission_list, Referee
 import pytest
 
 path_to_submission_directory = "tests/test_dataset_incomplete_submission/"

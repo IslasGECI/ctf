@@ -1,4 +1,4 @@
-from ..common_task_framework import Referee
+from ..ctf import Referee
 import pytest
 
 path_to_complete_dataset = "tests/test_dataset_na/complete_dataset.csv"

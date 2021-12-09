@@ -9,10 +9,9 @@ all: check init mutants
         mutants \
         setup \
         tests \
-        tests_python \
-        tests_shell
+        tests_python
 
-module = common_task_framework
+module = ctf
 
 define lint
 	pylint \
@@ -63,10 +62,7 @@ mutants: setup
         --paths-to-mutate ${module} \
         --runner "make tests"
 
-tests: tests_python tests_shell
+tests: tests_python
 
 tests_python:
 	pytest --verbose
-
-tests_shell:
-	shellspec --shell bash tests

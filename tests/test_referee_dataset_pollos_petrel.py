@@ -1,4 +1,4 @@
-from ..common_task_framework import get_submission_list, load_submission, Referee
+from ..ctf import get_submission_list, load_submission, Referee
 import pandas as pd
 import pytest
 

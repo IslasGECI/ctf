@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-python common_task_framework/main.py "$@"
