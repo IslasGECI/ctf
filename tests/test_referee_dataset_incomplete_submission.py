@@ -3,7 +3,7 @@ import pytest
 
 path_to_submission_directory = "tests/test_dataset_incomplete_submission/"
 path_to_complete_dataset = path_to_submission_directory + "complete_dataset.csv"
-ctf = Referee(path_to_complete_dataset)
+referee = Referee(path_to_complete_dataset)
 
 
 @pytest.mark.parametrize(
@@ -12,7 +12,7 @@ ctf = Referee(path_to_complete_dataset)
 def test_load_submission(file):
     path_to_submission = path_to_submission_directory + file
     with pytest.raises(ValueError, match="^La propuesta a solución no tiene la forma esperada$"):
-        ctf.get_mean_absolute_error(path_to_submission)
+        referee.get_mean_absolute_error(path_to_submission)
 
 
 def test_get_submission_list():
