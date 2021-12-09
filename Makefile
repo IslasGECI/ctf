@@ -59,8 +59,9 @@ linter:
 
 mutants: setup
 	mutmut run \
-        --paths-to-mutate ${module} \
-        --runner "make tests"
+        --paths-to-mutate "${module}" \
+        --runner "make tests" \
+        --test-time-base 2
 
 tests: tests_python
 
