@@ -17,6 +17,7 @@ RUN apt update && apt full-upgrade --yes && apt install --yes \
     neofetch \
     neovim \
     pip \
+    ripgrep \
     tmux
 
 # Use Python 3 as the default version of Python
