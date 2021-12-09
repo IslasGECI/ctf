@@ -11,10 +11,10 @@ jobs:
     - name: Copia repositorio
       uses: actions/checkout@v2
     - name: Construye imagen
-      run: docker build --tag islasgeci/common_task_framework .
+      run: docker build --tag islasgeci/ctf .
     - name: Verifica el formato
-      run: docker run islasgeci/common_task_framework make check
-    - name: Corre pruebas y evalúa cobertura
-      run: docker run islasgeci/common_task_framework make coverage
+      run: docker run islasgeci/ctf make check
+    - name: Corre pruebas
+      run: docker run islasgeci/ctf make init
     - name: Evalúa resistencia a mutaciones
-      run: docker run islasgeci/common_task_framework make mutants
+      run: docker run islasgeci/ctf make mutants
