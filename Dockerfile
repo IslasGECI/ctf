@@ -29,6 +29,7 @@ RUN pip install \
     "mutmut==2.1.0" \
     black \
     flake8 \
+    ipython \
     powerline-shell \
     pylint \
     pyright \
