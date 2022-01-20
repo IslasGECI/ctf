@@ -2,10 +2,10 @@ from ..ctf import get_submission_list, load_submission, Referee
 import os
 import pandas as pd
 
-path_to_complete_dataset = "tests/test_dataset_simple/complete_dataset.csv"
-referee = Referee(path_to_complete_dataset)
-path_to_submission = "tests/test_dataset_simple/test_submission.csv"
 path_to_submission_directory = "tests/test_dataset_simple"
+path_to_complete_dataset = path_to_submission_directory + "complete_dataset.csv"
+referee = Referee(path_to_complete_dataset)
+path_to_submission = path_to_submission_directory + "test_submission.csv"
 
 
 def test_load_complete_dataset():
@@ -73,19 +73,19 @@ def test_get_behind_the_wall_solution():
 
 def test_get_training_path():
     obtained_path = referee.get_training_path()
-    expected_path = "tests/test_dataset_simple/train.csv"
+    expected_path = path_to_submission_directory + "train.csv"
     assert expected_path == obtained_path
 
 
 def test_get_testing_path():
     obtained_path = referee.get_testing_path()
-    expected_path = "tests/test_dataset_simple/test.csv"
+    expected_path = path_to_submission_directory + "test.csv"
     assert expected_path == obtained_path
 
 
 def test_get_example_submission_path():
     obtained_path = referee.get_example_submission_path()
-    expected_path = "tests/test_dataset_simple/example_submission.csv"
+    expected_path = path_to_submission_directory + "example_submission.csv"
     assert expected_path == obtained_path
 
 
@@ -154,8 +154,8 @@ def test_get_mean_absolute_error():
 def test_get_submission_list():
     obtained_submission_list = get_submission_list(path_to_submission_directory)
     expected_submission_list = [
-        "tests/test_dataset_simple/test_submission.csv",
-        "tests/test_dataset_simple/test2_submission.csv",
+        path_to_submission_directory + "test_submission.csv",
+        path_to_submission_directory + "test2_submission.csv",
     ]
     assert sorted(expected_submission_list) == sorted(obtained_submission_list)
 
@@ -167,14 +167,14 @@ def test_get_mean_absolute_error_list():
     expected_mean_absolute_error_list = pd.DataFrame(columns=["submission", "mean_absolute_error"])
     expected_mean_absolute_error_list = expected_mean_absolute_error_list.append(
         {
-            "submission": "tests/test_dataset_simple/test2_submission.csv",
+            "submission": path_to_submission_directory + "test2_submission.csv",
             "mean_absolute_error": 0.2446,
         },
         ignore_index=True,
     )
     expected_mean_absolute_error_list = expected_mean_absolute_error_list.append(
         {
-            "submission": "tests/test_dataset_simple/test_submission.csv",
+            "submission": path_to_submission_directory + "test_submission.csv",
             "mean_absolute_error": 0.4246,
         },
         ignore_index=True,
