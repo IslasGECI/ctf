@@ -2,7 +2,7 @@ from ..ctf import get_submission_list, load_submission, Referee
 import os
 import pandas as pd
 
-path_to_submission_directory = "tests/test_dataset_simple"
+path_to_submission_directory = "tests/test_dataset_simple/"
 path_to_complete_dataset = path_to_submission_directory + "complete_dataset.csv"
 referee = Referee(path_to_complete_dataset)
 path_to_submission = path_to_submission_directory + "test_submission.csv"
