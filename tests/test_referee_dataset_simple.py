@@ -16,14 +16,23 @@ def test_load_complete_dataset():
 
 
 def test_get_training_length():
-    obtained_length = referee.get_training_length()
     expected_length = round(27 * 0.8)
-    assert expected_length == obtained_length
+    assert_length_dataset(expected_length, "training")
 
 
 def test_get_testing_length():
     obtained_length = referee.get_testing_length()
     expected_length = round(27 * 0.2)
+    assert_length_dataset(expected_length, "testing")
+    assert expected_length == obtained_length
+
+
+def assert_length_dataset(expected_length, dataset):
+    get_length_from_dataset = {
+        "testing": referee.get_testing_length(),
+        "training": referee.get_training_length(),
+    }
+    obtained_length = get_length_from_dataset[dataset]
     assert expected_length == obtained_length
 
 
