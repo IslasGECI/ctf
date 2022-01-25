@@ -1,4 +1,5 @@
 from ..ctf import get_submission_list, load_submission, Referee
+from .utils_tests import Test_Referee
 import os
 import pandas as pd
 import pytest
@@ -21,6 +22,15 @@ def test_load_complete_dataset():
 )
 def test_length_from_dataset(expected_length, dataset):
     assert_length_dataset(expected_length, dataset)
+
+
+class Test_Referee_simple(Test_Referee):
+    @pytest.mark.parametrize(
+        "expected_length, dataset, referee",
+        [(round(27 * 0.8), "training", referee), (round(27 * 0.2), "testing", referee)],
+    )
+    def test_length_from_dataset(self, expected_length, dataset, referee):
+        Test_Referee.test_length_from_dataset(self, expected_length, dataset, referee)
 
 
 def assert_length_dataset(expected_length, dataset):

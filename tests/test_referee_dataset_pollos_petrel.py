@@ -1,4 +1,5 @@
 from ..ctf import get_submission_list, load_submission, Referee
+from .utils_tests import Test_Referee
 import pandas as pd
 import pytest
 
@@ -6,6 +7,15 @@ path_to_submission_directory = "tests/test_dataset_pollos_petrel/"
 path_to_complete_dataset = path_to_submission_directory + "complete_dataset.csv"
 referee = Referee(path_to_complete_dataset)
 path_to_submission = path_to_submission_directory + "test_a_submission.csv"
+
+
+class Test_Referee_pollos_petrel(Test_Referee):
+    @pytest.mark.parametrize(
+        "expected_length, dataset, referee",
+        [(round(10 * 0.8), "training", referee), (round(10 * 0.2), "testing", referee)],
+    )
+    def test_length_from_dataset(self, expected_length, dataset, referee):
+        Test_Referee.test_length_from_dataset(self, expected_length, dataset, referee)
 
 
 def test_load_complete_dataset():
