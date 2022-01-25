@@ -18,7 +18,8 @@ def test_load_complete_dataset():
 
 
 @pytest.mark.parametrize(
-    "expected_length, dataset, referee", [(round(27 * 0.8), "training", referee), (round(27 * 0.2), "testing", referee)]
+    "expected_length, dataset, referee",
+    [(round(27 * 0.8), "training", referee), (round(27 * 0.2), "testing", referee)],
 )
 def test_length_from_dataset(expected_length, dataset, referee):
     _test_length_from_dataset(expected_length, dataset, referee)
