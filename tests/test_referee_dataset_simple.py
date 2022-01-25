@@ -1,5 +1,5 @@
 from ..ctf import get_submission_list, load_submission, Referee
-from .utils_tests import Test_Referee
+from .utils_tests import _test_length_from_dataset, _test_get_path
 import os
 import pandas as pd
 import pytest
@@ -18,28 +18,25 @@ def test_load_complete_dataset():
 
 
 @pytest.mark.parametrize(
-    "expected_length, dataset", [(round(27 * 0.8), "training"), (round(27 * 0.2), "testing")]
+    "expected_length, dataset, referee", [(round(27 * 0.8), "training", referee), (round(27 * 0.2), "testing", referee)]
 )
-def test_length_from_dataset(expected_length, dataset):
-    assert_length_dataset(expected_length, dataset)
+def test_length_from_dataset(expected_length, dataset, referee):
+    _test_length_from_dataset(expected_length, dataset, referee)
 
 
-class Test_Referee_simple(Test_Referee):
-    @pytest.mark.parametrize(
-        "expected_length, dataset, referee",
-        [(round(27 * 0.8), "training", referee), (round(27 * 0.2), "testing", referee)],
-    )
-    def test_length_from_dataset(self, expected_length, dataset, referee):
-        Test_Referee.test_length_from_dataset(self, expected_length, dataset, referee)
-
-
-def assert_length_dataset(expected_length, dataset):
-    get_length_from_dataset = {
-        "testing": referee.get_testing_length(),
-        "training": referee.get_training_length(),
-    }
-    obtained_length = get_length_from_dataset[dataset]
-    assert expected_length == obtained_length
+@pytest.mark.parametrize(
+    "obtained_path, expected_path",
+    [
+        (referee.get_testing_path(), path_to_submission_directory + "test.csv"),
+        (referee.get_training_path(), path_to_submission_directory + "train.csv"),
+        (
+            referee.get_example_submission_path(),
+            path_to_submission_directory + "example_submission.csv",
+        ),
+    ],
+)
+def test_get_path(obtained_path, expected_path):
+    _test_get_path(obtained_path, expected_path)
 
 
 def test_get_training_dataset():

@@ -1,5 +1,5 @@
 from ..ctf import get_submission_list, load_submission, Referee
-from .utils_tests import Test_Referee
+from .utils_tests import _test_length_from_dataset, _test_get_path
 import pandas as pd
 import pytest
 
@@ -9,13 +9,12 @@ referee = Referee(path_to_complete_dataset)
 path_to_submission = path_to_submission_directory + "test_a_submission.csv"
 
 
-class Test_Referee_pollos_petrel(Test_Referee):
-    @pytest.mark.parametrize(
-        "expected_length, dataset, referee",
-        [(round(10 * 0.8), "training", referee), (round(10 * 0.2), "testing", referee)],
-    )
-    def test_length_from_dataset(self, expected_length, dataset, referee):
-        Test_Referee.test_length_from_dataset(self, expected_length, dataset, referee)
+@pytest.mark.parametrize(
+    "expected_length, dataset, referee",
+    [(round(10 * 0.8), "training", referee), (round(10 * 0.2), "testing", referee)],
+)
+def test_length_from_dataset(expected_length, dataset, referee):
+    _test_length_from_dataset(expected_length, dataset, referee)
 
 
 def test_load_complete_dataset():
@@ -66,7 +65,7 @@ def test_get_testing_dataset():
     ],
 )
 def test_get_path(obtained_path, expected_path):
-    assert expected_path == obtained_path
+    _test_get_path(obtained_path, expected_path)
 
 
 def test_load_submission():
