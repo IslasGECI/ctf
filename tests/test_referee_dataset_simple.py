@@ -1,6 +1,7 @@
 from ..ctf import get_submission_list, load_submission, Referee
 import os
 import pandas as pd
+import pytest
 
 path_to_submission_directory = "tests/test_dataset_simple/"
 path_to_complete_dataset = path_to_submission_directory + "complete_dataset.csv"
@@ -15,16 +16,11 @@ def test_load_complete_dataset():
     assert expected_length == obtained_length
 
 
-def test_get_training_length():
-    expected_length = round(27 * 0.8)
-    assert_length_dataset(expected_length, "training")
-
-
-def test_get_testing_length():
-    obtained_length = referee.get_testing_length()
-    expected_length = round(27 * 0.2)
-    assert_length_dataset(expected_length, "testing")
-    assert expected_length == obtained_length
+@pytest.mark.parametrize(
+    "expected_length, dataset", [(round(27 * 0.8), "training"), (round(27 * 0.2), "testing")]
+)
+def test_length_from_dataset(expected_length, dataset):
+    assert_length_dataset(expected_length, dataset)
 
 
 def assert_length_dataset(expected_length, dataset):
