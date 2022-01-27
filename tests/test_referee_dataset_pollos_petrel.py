@@ -112,4 +112,5 @@ def test_get_mean_absolute_error_list():
     pd.testing.assert_frame_equal(
         expected_mean_absolute_error_list.reset_index(drop=True),
         obtained_mean_absolute_error_list.reset_index(drop=True),
+        check_dtype=False,
     )
