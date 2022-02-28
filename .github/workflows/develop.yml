@@ -1,4 +1,4 @@
-name: Tests
+name: Push latest
 on:
   push:
     branches:
@@ -10,10 +10,19 @@ jobs:
     - name: Copia repositorio
       uses: actions/checkout@v2
     - name: Construye imagen
-      run: docker build --tag islasgeci/ctf:latest .
+      run: docker build --tag islasgeci/ctf:latest --tag islasgeci/ctf:${GITHUB_SHA:0:4} .
     - name: Verifica el formato
       run: docker run islasgeci/ctf:latest make check
     - name: Corre pruebas
       run: docker run islasgeci/ctf:latest make init
     - name: Evalúa resistencia a mutaciones
       run: docker run islasgeci/ctf:latest make mutants
+    - name: Docker log-in
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
+    - name: Sube latest a Docker Hub
+      run: docker push islasgeci/ctf:latest
+    - name: Sube sha a Docker Hub
+      run: docker push islasgeci/ctf:${GITHUB_SHA:0:4}
