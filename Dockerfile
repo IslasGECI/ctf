@@ -8,6 +8,10 @@ ENV PYTHONIOENCODING=utf-8
 ENV QT_QPA_PLATFORM=offscreen
 ENV TZ=US/Pacific
 
+# Instala paquetes en el sistema operativo
+RUN apt update && apt full-upgrade --yes && apt install --yes \
+    pip
+
 # Use Python 3 as the default version of Python
 RUN ln --symbolic /usr/bin/python3 /usr/bin/python
 
