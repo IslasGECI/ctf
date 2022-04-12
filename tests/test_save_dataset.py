@@ -16,4 +16,4 @@ def test_save_training_dataset_includes_na():
     obtained_count_na = pd.read_csv(path_to_training).isna().sum().sum()
     expected_count_na = 31
     assert expected_count_na == obtained_count_na
-    os.remove(path_to_training)
+    _remove_if_exists(path_to_training)
