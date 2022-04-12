@@ -1,6 +1,10 @@
 from ..ctf import get_submission_list, load_submission, Referee
-from .utils_tests import _remove_if_exists, _test_length_from_dataset, _test_get_path
-import os
+from .utils_tests import (
+    _assert_file_exits,
+    _remove_if_exists,
+    _test_length_from_dataset,
+    _test_get_path,
+)
 import pandas as pd
 import pytest
 
@@ -106,7 +110,7 @@ def test_save_training_dataset():
     path_to_training = referee.get_training_path()
     _remove_if_exists(path_to_training)
     referee.save_training_dataset()
-    assert os.path.exists(path_to_training)
+    _assert_file_exits(path_to_training)
     obtained_first_column = pd.read_csv(path_to_training).columns[0]
     expected_first_column = "id"
     assert expected_first_column == obtained_first_column
@@ -117,7 +121,7 @@ def test_save_testing_dataset():
     path_to_testing = referee.get_testing_path()
     _remove_if_exists(path_to_testing)
     referee.save_testing_dataset()
-    assert os.path.exists(path_to_testing)
+    _assert_file_exits(path_to_testing)
     obtained_first_column = pd.read_csv(path_to_testing).columns[0]
     expected_first_column = "id"
     assert expected_first_column == obtained_first_column
@@ -128,7 +132,7 @@ def test_save_example_submission():
     path_to_example_submission = referee.get_example_submission_path()
     _remove_if_exists(path_to_example_submission)
     referee.save_example_submission()
-    assert os.path.exists(path_to_example_submission)
+    _assert_file_exits(path_to_example_submission)
     obtained_first_column = pd.read_csv(path_to_example_submission).columns[0]
     expected_first_column = "id"
     assert expected_first_column == obtained_first_column
@@ -138,13 +142,13 @@ def test_save_example_submission():
 def test_init():
     referee.init()
     path_to_training = referee.get_training_path()
-    assert os.path.exists(path_to_training)
+    _assert_file_exits(path_to_training)
     _remove_if_exists(path_to_training)
     path_to_testing = referee.get_testing_path()
-    assert os.path.exists(path_to_testing)
+    _assert_file_exits(path_to_testing)
     _remove_if_exists(path_to_testing)
     path_to_example_submission = referee.get_example_submission_path()
-    assert os.path.exists(path_to_example_submission)
+    _assert_file_exits(path_to_example_submission)
     _remove_if_exists(path_to_example_submission)
 
 
