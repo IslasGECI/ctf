@@ -179,19 +179,32 @@ def test_get_mean_absolute_error_list():
         path_to_submission_directory
     )
     expected_mean_absolute_error_list = pd.DataFrame(columns=["submission", "mean_absolute_error"])
-    expected_mean_absolute_error_list = expected_mean_absolute_error_list.append(
-        {
-            "submission": path_to_submission_directory + "test2_submission.csv",
-            "mean_absolute_error": 0.2446,
-        },
+    expected_mean_absolute_error_list = pd.concat(
+        [
+            expected_mean_absolute_error_list,
+            pd.DataFrame(
+                [
+                    {
+                        "submission": path_to_submission_directory + "test2_submission.csv",
+                        "mean_absolute_error": 0.2446,
+                    },
+                ]
+            ),
+        ],
         ignore_index=True,
     )
-    expected_mean_absolute_error_list = expected_mean_absolute_error_list.append(
-        {
-            "submission": path_to_submission_directory + "test_submission.csv",
-            "mean_absolute_error": 0.4246,
-        },
-        ignore_index=True,
+    expected_mean_absolute_error_list = pd.concat(
+        [
+            expected_mean_absolute_error_list,
+            pd.DataFrame(
+                [
+                    {
+                        "submission": path_to_submission_directory + "test_submission.csv",
+                        "mean_absolute_error": 0.4246,
+                    }
+                ]
+            ),
+        ]
     )
     pd.testing.assert_frame_equal(
         expected_mean_absolute_error_list.reset_index(drop=True),
